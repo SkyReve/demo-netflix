@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL : "https://api.themoviedb.org/3",
+  baseURL : "https://api.hellreve.world/project/<project_id>/",
   params : {
-    api_key : process.env.REACT_APP_TMDB_API_KEY,
+    api_key : "c3f199fe9a0d3b8b7ccb5b5700521028",
     language : "ko-KR"
   }    
 })
