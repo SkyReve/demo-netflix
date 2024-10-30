@@ -13,6 +13,7 @@ function MainPage() {
         fetchUrl={requests.fetchNetfilxOriginals}
         isLargeRow
       />
+      {/*
       <Row
         title='지금 뜨는 콘텐츠'
         id='TN'
@@ -48,6 +49,7 @@ function MainPage() {
         id='DM'
         fetchUrl={requests.fetchDocumentariesMovies}
       />
+      */}
     </div>
   );
 }

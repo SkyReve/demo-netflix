@@ -9,6 +9,7 @@ function Nav() {
   const [searchValue, setSearchValue] = useState("");
   const { setIsClicked } = useContext(CommonStateContext);
   const navigate = useNavigate();
+  const PUBLIC_URL = 'https://github.com/SkyReve/demo-netflix/blob/main/public'
   
   useEffect(()=>{
     window.addEventListener("scroll", () => {
@@ -39,7 +40,7 @@ function Nav() {
     <nav className={`nav ${show && "nav__black"}`}>
       <img 
         alt="Neflix logo" 
-        src= {process.env.PUBLIC_URL + '/assets/netflix_logo.png'}
+        src= {PUBLIC_URL + '/assets/netflix_logo.png'}
         className="nav__logo"
         onClick={()=>goIndex()}
       />
@@ -47,7 +48,7 @@ function Nav() {
       <input value={searchValue} onChange={handleChange} className="nav__input" type="text" placeholder="영화명, TV 프로그램명" />
       <img
         alt="User logged"
-        src={process.env.PUBLIC_URL + '/assets/netflix_profile_icon.png'}
+        src={PUBLIC_URL + '/assets/netflix_profile_icon.png'}
         className="nav__avatar"
       />
       </div>
