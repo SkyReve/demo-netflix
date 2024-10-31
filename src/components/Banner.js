@@ -100,14 +100,14 @@ function Banner() {
       });
 
       // 비디오가 있고 기존 영화정보가 없을때 만 setMovie
-      if (movieDetail.videos.results.length > 0 && videosArr.length === 0) {
-        movieDetail.officialVideos = [];
-        for (let obj of movieDetail.videos.results) {
+      if (movieDetail.results.videos.results.length > 0 && videosArr.length === 0) {
+        movieDetail.results.officialVideos = [];
+        for (let obj of movieDetail.results.videos.results) {
           if (obj.type === 'Teaser' || obj.type === 'Trailer') {
-            movieDetail.officialVideos.push(obj);
+            movieDetail.results.officialVideos.push(obj);
           }
         }
-        videosArr.push(movieDetail);
+        videosArr.push(movieDetail.results);
         setMovie(videosArr[0]);
       }
     } while (videosArr.length === 0);

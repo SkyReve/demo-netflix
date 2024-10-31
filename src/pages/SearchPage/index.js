@@ -42,7 +42,7 @@ function SearchPage () {
     const handler = setTimeout( async ()=>{
       if(miniModalMovieId && !modalOpen){
         const movieDetails = await fetchMovie(miniModalMovieId, categoryId);
-        setMovieSelected(movieDetails.data);
+        setMovieSelected(movieDetails.data.results);
         setMiniModalOpen(miniModalOpenTrigger);
 
       }
@@ -65,7 +65,7 @@ function SearchPage () {
   const handleClick = async (movie) => {
     const movieDetails = await fetchMovie(movie.id, categoryId);
     setModalOpen(true); 
-    setMovieSelected(movieDetails.data);
+    setMovieSelected(movieDetails.data.results);
     setMiniModalOpenTrigger(false);
   };
 

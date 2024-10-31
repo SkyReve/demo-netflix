@@ -31,7 +31,7 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
     const handler = setTimeout(async () => {
       if (miniModalMovieId && !modalOpen) {
         const movieDetails = await fetchMovie(miniModalMovieId, categorySelected);
-        setMovieSelected(movieDetails.data);
+        setMovieSelected(movieDetails.data.results);
         setMiniModalOpen(miniModalOpenTrigger);
       }
     }, 1000);
@@ -54,7 +54,7 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
   const handleClick = useCallback(async (movie) => {
     setCategorySelected(movie.media_type ? movie.media_type.toUpperCase() : id);
     const movieDetails = await fetchMovie(movie.id, movie.media_type ? movie.media_type.toUpperCase() : id);
-    setMovieSelected(movieDetails.data);
+    setMovieSelected(movieDetails.data.results);
     setModalOpen(true);
     setMiniModalOpenTrigger(false);
   }, []);

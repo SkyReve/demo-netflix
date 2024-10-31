@@ -7,13 +7,13 @@ function MainPage() {
   return (
     <div>
       <Banner />
+      {/*
       <Row
         title='TV TOP 10 시리즈'
         id='TV'
         fetchUrl={requests.fetchNetfilxOriginals}
         isLargeRow
       />
-      {/*
       <Row
         title='지금 뜨는 콘텐츠'
         id='TN'
