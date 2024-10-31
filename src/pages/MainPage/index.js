@@ -7,7 +7,6 @@ function MainPage() {
   return (
     <div>
       <Banner />
-      {/*
       <Row
         title='TV TOP 10 시리즈'
         id='TV'
@@ -49,7 +48,6 @@ function MainPage() {
         id='DM'
         fetchUrl={requests.fetchDocumentariesMovies}
       />
-      */}
     </div>
   );
 }
