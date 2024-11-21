@@ -1,7 +1,5 @@
 import axios from "axios";
 
-console.debug(" >>>>>>>>> ", process.env.REACT_APP_PROJECT_ID);
-
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   params: {
@@ -11,3 +9,7 @@ const instance = axios.create({
 });
 
 export default instance;
+
+export function changeBaseURL(url) {
+  instance.defaults.baseURL = url;
+}

@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import requests from '../api/requests';
-import YouTube from 'react-youtube';
-import axios from '../api/axios';
-import { CommonStateContext } from '../App';
-import MovieModal from './MovieModal/MovieModal';
-import { styled } from 'styled-components';
-import './Banner.css';
+import React, { useState, useEffect, useContext } from "react";
+import requests from "../api/requests";
+import YouTube from "react-youtube";
+import axios from "../api/axios";
+import { CommonStateContext } from "../App";
+import MovieModal from "./MovieModal/MovieModal";
+import { styled } from "styled-components";
+import "./Banner.css";
 
 const YouTubeOpts = {
-  width: '100%',
+  width: "100%",
   height: 500,
   playerVars: {
     autoplay: 1,
@@ -19,7 +19,7 @@ const YouTubeOpts = {
   },
 };
 
-function Banner() {
+function Banner(props) {
   const [movie, setMovie] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const { isClicked, setIsClicked } = useContext(CommonStateContext);
@@ -38,7 +38,7 @@ function Banner() {
       align-items: center;
       justify-content: end;
 
-      background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}');
+      background-image: url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}");
       background-position: center;
       background-size: cover;
     }
@@ -51,7 +51,7 @@ function Banner() {
     color: white;
     object-fit: contain;
     height: 448px;
-    background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}');
+    background-image: url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}");
     background-position: top center;
     background-size: cover;
 
@@ -74,17 +74,13 @@ function Banner() {
     }
   `;
 
-  let backgroudMedia = window.matchMedia('(max-width: 768px)');
+  let backgroudMedia = window.matchMedia("(max-width: 768px)");
   const applyBackgroudCss = (e) => {
     if (e.matches) {
-      console.log('미디어 호출');
+      console.log("미디어 호출");
     }
   };
-  backgroudMedia.addEventListener('change', applyBackgroudCss);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  backgroudMedia.addEventListener("change", applyBackgroudCss);
 
   const fetchData = async () => {
     // 현재 상영중인 영화정보를 가져오기(여러 영화)
@@ -92,18 +88,24 @@ function Banner() {
 
     do {
       // 여러 영화중 하나의 영화 ID를 가져오기
-      const movieId = request.data.results[Math.floor(Math.random() * request.data.results.length)].id;
+      const movieId =
+        request.data.results[
+          Math.floor(Math.random() * request.data.results.length)
+        ].id;
 
       // 특정 영화의 상세정보 가져오기(동영상 포함)
       const { data: movieDetail } = await axios.get(`movie/${movieId}`, {
-        params: { append_to_response: 'videos' },
+        params: { append_to_response: "videos" },
       });
 
       // 비디오가 있고 기존 영화정보가 없을때 만 setMovie
-      if (movieDetail.results.videos.results.length > 0 && videosArr.length === 0) {
+      if (
+        movieDetail.results.videos.results.length > 0 &&
+        videosArr.length === 0
+      ) {
         movieDetail.results.officialVideos = [];
         for (let obj of movieDetail.results.videos.results) {
-          if (obj.type === 'Teaser' || obj.type === 'Trailer') {
+          if (obj.type === "Teaser" || obj.type === "Trailer") {
             movieDetail.results.officialVideos.push(obj);
           }
         }
@@ -113,12 +115,16 @@ function Banner() {
     } while (videosArr.length === 0);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, [props.baseURL]);
+
   const handleClick = () => {
     setModalOpen(true);
   };
 
   const truncate = (str, n) => {
-    return str?.length > n ? str.substr(0, n - 1) + '...' : str;
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
 
   const onPlayerReady = (e) => {
@@ -130,38 +136,37 @@ function Banner() {
     return (
       <Banner>
         <BannerContents>
-          <h1 className='banner__title'>{movie.title || movie.name || movie.original_name}</h1>
-          <h1 className='banner__description'>{truncate(movie.overview, 100)}</h1>
-          <div className='banner__genre'>
+          <h1 className="banner__title">
+            {movie.title || movie.name || movie.original_name}
+          </h1>
+          <h1 className="banner__description">
+            {truncate(movie.overview, 100)}
+          </h1>
+          <div className="banner__genre">
             {movie.genres &&
               movie.genres.map((obj, idx) => (
-                <span
-                  key={obj.id}
-                  className='banner__genre__item'>
-                  {obj.name + (idx === movie.genres.length - 1 ? ' ' : ' • ')}
+                <span key={obj.id} className="banner__genre__item">
+                  {obj.name + (idx === movie.genres.length - 1 ? " " : " • ")}
                 </span>
               ))}
           </div>
-          <div className='banner__buttons'>
+          <div className="banner__buttons">
             <button
-              className='banner__button play'
-              onClick={() => setIsClicked(true)}>
+              className="banner__button play"
+              onClick={() => setIsClicked(true)}
+            >
               ▶︎ 재생
             </button>
             <button
-              className='banner__button info'
-              onClick={() => handleClick(movie)}>
+              className="banner__button info"
+              onClick={() => handleClick(movie)}
+            >
               ⓘ 상세 정보
             </button>
           </div>
         </BannerContents>
-        <div className='banner--fadeBottom'></div>
-        {modalOpen && (
-          <MovieModal
-            {...movie}
-            setModalOpen={setModalOpen}
-          />
-        )}
+        <div className="banner--fadeBottom"></div>
+        {modalOpen && <MovieModal {...movie} setModalOpen={setModalOpen} />}
       </Banner>
     );
   } else {
@@ -171,7 +176,8 @@ function Banner() {
         opts={YouTubeOpts}
         id={movie.id}
         style={{ paddingTop: 70 }}
-        onReady={(e) => onPlayerReady(e)}></YouTube>
+        onReady={(e) => onPlayerReady(e)}
+      ></YouTube>
     );
   }
 }
