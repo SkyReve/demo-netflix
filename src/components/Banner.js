@@ -94,7 +94,7 @@ function Banner(props) {
         ].id;
 
       // 특정 영화의 상세정보 가져오기(동영상 포함)
-      const { data: movieDetail } = await axios.get(`movie/${movieId}`, {
+      const { data: movieDetail } = await axios.get(`movie/${movieId}/`, {
         params: { append_to_response: "videos" },
       });
 

@@ -55,7 +55,7 @@ function SearchPage () {
   
   const fetchSearchMovie = async (searchTerm) => {
     try{
-      const request = await axios.get(`/search/multi?include_adult=false&query=${searchTerm}`) 
+      const request = await axios.get(`/search/multi/?include_adult=false&query=${searchTerm}`)
       setSearchResults(request.data.results);
     } catch (error) {
       console.log("error", error)

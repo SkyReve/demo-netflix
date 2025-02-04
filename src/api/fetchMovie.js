@@ -1,7 +1,7 @@
 import axios from './axios';
 
 const fetchMovie = async (movieId, categoryId) => {
-  const movieDetails = await axios.get(categoryId === 'TV' ? 'tv/' + movieId : 'movie/' + movieId, {
+  const movieDetails = await axios.get(categoryId === 'TV' ? 'tv/' + movieId + "/" : 'movie/' + movieId + "/", {
     params: { append_to_response: 'videos' },
   });
   if (movieDetails.data.results.videos.results.length > 0) {
